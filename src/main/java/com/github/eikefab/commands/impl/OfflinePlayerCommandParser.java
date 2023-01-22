@@ -3,28 +3,28 @@ package com.github.eikefab.commands.impl;
 import com.github.eikefab.commands.CommandParser;
 import com.github.eikefab.commands.utils.UUIDChecker;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
 
 import java.util.UUID;
 
-public class PlayerCommandParser implements CommandParser<Player> {
+public class OfflinePlayerCommandParser implements CommandParser<OfflinePlayer> {
 
     @Override
-    public Player from(Object arg) {
+    public OfflinePlayer from(Object arg) {
         if (arg == null) return null;
 
         final String nameOrId = arg.toString();
 
         if (UUIDChecker.is(nameOrId)) {
-            return Bukkit.getPlayer(UUID.fromString(nameOrId));
+            return Bukkit.getOfflinePlayer(UUID.fromString(nameOrId));
         } else {
-            return Bukkit.getPlayer(nameOrId);
+            return Bukkit.getOfflinePlayer(nameOrId);
         }
     }
 
     @Override
-    public Object to(Player arg) {
-        return arg.getUniqueId();
+    public Object to(OfflinePlayer arg) {
+        return arg;
     }
 
 }
