@@ -25,7 +25,7 @@ public abstract class Command implements CommandFrame {
         return subCommands;
     }
 
-    protected Command addSubCommand(Command subCommand) {
+    public Command addSubCommand(Command subCommand) {
         subCommands.put(subCommand.name(), subCommand);
 
         subCommand.aliases().forEach((name) -> subCommands.put(name, subCommand));
