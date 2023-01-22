@@ -11,9 +11,9 @@ import java.util.List;
 public class CommandContext {
 
     private final CommandSender sender;
-    private final ImmutableList<Object> args;
+    private final List<Object> args;
 
-    protected CommandContext(CommandSender sender, ImmutableList<Object> args) {
+    protected CommandContext(CommandSender sender, List<Object> args) {
         this.sender = sender;
         this.args = args;
     }
@@ -22,7 +22,7 @@ public class CommandContext {
         return sender;
     }
 
-    public ImmutableList<Object> getArgs() {
+    public List<Object> getArgs() {
         return args;
     }
 

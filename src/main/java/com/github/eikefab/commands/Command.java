@@ -55,12 +55,19 @@ public abstract class Command implements CommandFrame {
 
         command.setExecutor(
             (sender, cmd, lb, args) -> {
-                if (type != CommandType.BOTH && !validateCommandType(sender, type)) {
-                   return true;
-                }
+                final int argLength = args.length;
 
-                if (args.length == 0 || !subCommands.containsKey(args[0])) {
-                    final CommandContext context = new CommandContext(sender, ImmutableList.of(args));
+                if (argLength == 0 || !subCommands.containsKey(args[0])) {
+                    if (!validateCommandType(sender, type)) {
+                        return true;
+                    }
+
+                    final CommandContext context = new CommandContext(
+                            sender,
+                            argLength == 0 ?
+                            ImmutableList.of() :
+                            Arrays.asList(args)
+                    );
 
                     handle(context);
 
@@ -70,19 +77,20 @@ public abstract class Command implements CommandFrame {
                 final Command subCommand = subCommands.get(args[0]);
                 final CommandContext context = new CommandContext(
                         sender,
-                        args.length > 1 ?
-                        ImmutableList.of(Arrays.copyOfRange(
-                                args,
-                                1,
-                                args.length
-                        )) :
+                        argLength > 1 ?
+                        Arrays.asList(
+                                Arrays.copyOfRange(
+                                    args,
+                                    1,
+                                    argLength
+                                )
+                        ) :
                         ImmutableList.of()
                 );
 
                 if (!validateCommandType(sender, subCommand.type())) {
                     return true;
                 }
-
 
                 if (!context.hasPermission(subCommand.permission())) {
                     context.sendMessage(subCommand.permissionMessage());
