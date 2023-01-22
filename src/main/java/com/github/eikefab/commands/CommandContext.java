@@ -38,10 +38,10 @@ public class CommandContext {
         return CommandParsers.get(clazz).from(args.get(index));
     }
 
-    public void sendMessage(String text) {
+    public void sendMessage(String text, Object... values) {
         if (text == null) return;
 
-        sender.sendMessage(colorize(text));
+        sender.sendMessage(String.format(colorize(text), values));
     }
 
     public void sendMessage(String[] args) {
