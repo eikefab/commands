@@ -64,7 +64,7 @@ public class CommandContext {
         return (Player) sender;
     }
 
-    private String colorize(String text) {
+    public String colorize(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
