@@ -53,7 +53,7 @@ public class CommandContext {
     }
 
     public boolean hasPermission(String permission) {
-        if (permission == null || permission.isEmpty() || permission.isBlank()) return true;
+        if (permission == null || permission.length() == 0) return true;
 
         return sender.hasPermission(permission);
     }
